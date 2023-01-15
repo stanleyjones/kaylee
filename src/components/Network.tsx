@@ -1,4 +1,6 @@
 import React from "react";
+import { Base as Server } from "@liftedinit/many-js/dist/v2";
+import { Status as BaseStatus } from "@liftedinit/many-js/dist/server/base/status";
 import {
   Badge,
   Box,
@@ -11,7 +13,6 @@ import {
   Input,
   Text,
 } from "@liftedinit/ui";
-import { Network as Net, NetworkStatusInfo, Base } from "@liftedinit/many-js";
 
 interface NetworkProps {
   url: string;
@@ -20,17 +21,14 @@ interface NetworkProps {
 
 function Network({ url, setUrl }: NetworkProps) {
   const [input, setInput] = React.useState(url);
-  const [status, setStatus] = React.useState<NetworkStatusInfo | undefined>(
-    undefined
-  );
+  const [status, setStatus] = React.useState<BaseStatus | undefined>(undefined);
   const [endpoints, setEndpoints] = React.useState<string[]>([]);
   React.useEffect(() => {
     async function connect() {
       try {
-        const network = new Net(url);
-        network.apply([Base]);
-        const { status } = await network.base.status();
-        const { endpoints } = await network.base.endpoints();
+        const server = new Server(url);
+        const status = await server.status();
+        const { endpoints } = await server.endpoints();
         setStatus(status);
         setEndpoints(endpoints);
       } catch {

@@ -1,5 +1,9 @@
 import React from "react";
-import { Ed25519KeyPairIdentity as Id } from "@liftedinit/many-js";
+import {
+  Identifier as Id,
+  Anonymous,
+  KeyPair,
+} from "@liftedinit/many-js/dist/v2";
 import {
   Box,
   Button,
@@ -15,19 +19,19 @@ import {
 } from "@liftedinit/ui";
 
 interface IdentityProps {
-  setId: (id?: Id) => void;
+  setId: (id: Id) => void;
 }
 
 function Identity({ setId }: IdentityProps) {
-  const [mnemonic, setMnemonic] = React.useState(Id.getMnemonic());
+  const [mnemonic, setMnemonic] = React.useState(KeyPair.getMnemonic());
   const [textarea, setTextarea] = React.useState("");
   return (
     <Box bg="white" p={6}>
       <Heading>Identity</Heading>
       <Tabs>
         <TabList>
-          <Tab onClick={() => setId()}>Anonymous</Tab>
-          <Tab onClick={() => setMnemonic(Id.getMnemonic())}>Random</Tab>
+          <Tab onClick={() => setId(new Anonymous())}>Anonymous</Tab>
+          <Tab onClick={() => setMnemonic(KeyPair.getMnemonic())}>Random</Tab>
           <Tab>Seed Words</Tab>
           <Tab>Import PEM</Tab>
         </TabList>
@@ -46,7 +50,10 @@ function Identity({ setId }: IdentityProps) {
                 onChange={(e) => setTextarea(e.target.value)}
               />
             </FormControl>
-            <Button mt={6} onClick={() => setId(Id.fromMnemonic(mnemonic))}>
+            <Button
+              mt={6}
+              onClick={() => setId(KeyPair.fromMnemonic(mnemonic))}
+            >
               Import
             </Button>
           </TabPanel>
@@ -60,7 +67,10 @@ function Identity({ setId }: IdentityProps) {
                 onChange={(e) => setTextarea(e.target.value)}
               />
             </FormControl>
-            <Button mt={6} onClick={() => setId(Id.fromMnemonic(textarea))}>
+            <Button
+              mt={6}
+              onClick={() => setId(KeyPair.fromMnemonic(textarea))}
+            >
               Import
             </Button>
           </TabPanel>
@@ -74,7 +84,7 @@ function Identity({ setId }: IdentityProps) {
                 onChange={(e) => setTextarea(e.target.value)}
               />
             </FormControl>
-            <Button mt={6} onClick={() => setId(Id.fromPem(textarea))}>
+            <Button mt={6} onClick={() => setId(KeyPair.fromPem(textarea))}>
               Import
             </Button>
           </TabPanel>

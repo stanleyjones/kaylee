@@ -1,4 +1,4 @@
-import { Message as Msg } from "@liftedinit/many-js";
+import { Response as Res } from "@liftedinit/many-js/dist/v2";
 import {
   Tab,
   Tabs,
@@ -11,7 +11,7 @@ import {
 } from "@liftedinit/ui";
 
 interface ResponseProps {
-  res: string;
+  res?: Res;
 }
 
 function Response({ res }: ResponseProps) {
@@ -27,11 +27,16 @@ function Response({ res }: ResponseProps) {
 
         <TabPanels>
           <TabPanel>
-            <Textarea h={300} isReadOnly name="hex" value={res} />
+            <Textarea
+              h={300}
+              isReadOnly
+              name="hex"
+              value={res && res.toBuffer().toString()}
+            />
           </TabPanel>
           <TabPanel>
             <pre style={{ whiteSpace: "pre-wrap" }}>
-              {res && Msg.fromCborData(Buffer.from(res, "hex")).toString()}
+              {res && JSON.stringify(res.toObject())}
             </pre>
           </TabPanel>
         </TabPanels>

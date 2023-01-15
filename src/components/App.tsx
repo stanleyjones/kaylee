@@ -1,8 +1,10 @@
 import React from "react";
 import {
-  Ed25519KeyPairIdentity as Id,
-  Message as Msg,
-} from "@liftedinit/many-js";
+  Request as Req,
+  Response as Res,
+  Identifier as Id,
+  Anonymous,
+} from "@liftedinit/many-js/dist/v2";
 
 import Logo from "./Logo";
 import Network from "./Network";
@@ -15,9 +17,9 @@ import { Container, Stack } from "@liftedinit/ui";
 
 function App() {
   const [url, setUrl] = React.useState("http://localhost:8000");
-  const [id, setId] = React.useState<Id | undefined>();
-  const [msg, setMsg] = React.useState<Msg | undefined>();
-  const [res, setRes] = React.useState("");
+  const [id, setId] = React.useState<Id>(new Anonymous());
+  const [req, setReq] = React.useState<Req | undefined>();
+  const [res, setRes] = React.useState<Res | undefined>();
 
   return (
     <Container>
@@ -25,8 +27,8 @@ function App() {
       <Stack gap={6}>
         <Network url={url} setUrl={setUrl} />
         <Identity setId={setId} />
-        <Message id={id} setMsg={setMsg} />
-        <Request url={url} id={id} msg={msg} setRes={setRes} />
+        <Message id={id} setReq={setReq} />
+        <Request url={url} id={id} req={req} setRes={setRes} />
         <Response res={res} />
       </Stack>
     </Container>
