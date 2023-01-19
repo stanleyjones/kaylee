@@ -1,5 +1,5 @@
 import React from "react";
-import { Response as Res } from "@liftedinit/many-js/dist/v2";
+import { Response as Res } from "@liftedinit/many-js";
 import {
   Tab,
   Tabs,
@@ -14,6 +14,13 @@ import {
 interface ResponseProps {
   enc?: Buffer;
 }
+
+const replacer = (key: any, value: unknown) => {
+  if (value instanceof Map) {
+    return Object.fromEntries(value);
+  }
+  return value;
+};
 
 function Response({ enc }: ResponseProps) {
   const [res, setRes] = React.useState<Res | undefined>();
@@ -47,7 +54,7 @@ function Response({ enc }: ResponseProps) {
           </TabPanel>
           <TabPanel>
             <pre style={{ whiteSpace: "pre-wrap" }}>
-              {res && JSON.stringify(res.toJSON(), null, 2)}
+              {res && JSON.stringify(res.toJSON(), replacer, 2)}
             </pre>
           </TabPanel>
         </TabPanels>

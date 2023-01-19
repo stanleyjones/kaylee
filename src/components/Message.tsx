@@ -1,5 +1,5 @@
 import React from "react";
-import { Identifier as Id, Request as Req } from "@liftedinit/many-js/dist/v2";
+import { Identifier as Id, Request as Req } from "@liftedinit/many-js";
 import { Box, Button, Heading } from "@liftedinit/ui";
 import Field from "./Field";
 

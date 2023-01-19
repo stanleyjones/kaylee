@@ -3,11 +3,11 @@ import {
   Request as Req,
   Identifier as Id,
   Anonymous,
-} from "@liftedinit/many-js/dist/v2";
+} from "@liftedinit/many-js";
 
 import Logo from "./Logo";
-import Network from "./Network";
-import Identity from "./Identity";
+import Server from "./Server";
+import Identifier from "./Identifier";
 import Message from "./Message";
 import Request from "./Request";
 import Response from "./Response";
@@ -24,8 +24,8 @@ function App() {
     <Container>
       <Logo />
       <Stack gap={6}>
-        <Network url={url} setUrl={setUrl} />
-        <Identity setId={setId} />
+        <Server url={url} setUrl={setUrl} />
+        <Identifier setId={setId} />
         <Message id={id} setReq={setReq} />
         <Request url={url} id={id} req={req} setEnc={setEnc} />
         <Response enc={enc} />

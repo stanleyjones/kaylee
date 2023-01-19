@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  Identifier as Id,
-  Anonymous,
-  KeyPair,
-} from "@liftedinit/many-js/dist/v2";
+import { Identifier as Id, Anonymous, KeyPair } from "@liftedinit/many-js";
 import {
   Box,
   Button,
@@ -18,11 +14,11 @@ import {
   Textarea,
 } from "@liftedinit/ui";
 
-interface IdentityProps {
+interface IdentifierProps {
   setId: (id: Id) => void;
 }
 
-function Identity({ setId }: IdentityProps) {
+function Identifier({ setId }: IdentifierProps) {
   const [mnemonic, setMnemonic] = React.useState(KeyPair.getMnemonic());
   const [textarea, setTextarea] = React.useState("");
   return (
@@ -94,4 +90,4 @@ function Identity({ setId }: IdentityProps) {
   );
 }
 
-export default Identity;
+export default Identifier;

@@ -2,8 +2,8 @@ import React from "react";
 import {
   Identifier as Id,
   Request as Req,
-  Base as Server,
-} from "@liftedinit/many-js/dist/v2";
+  BaseService,
+} from "@liftedinit/many-js";
 import {
   Box,
   Button,
@@ -17,7 +17,7 @@ import {
 } from "@liftedinit/ui";
 
 const sendReq = async (url: string, hex: string) => {
-  const server = new Server(url);
+  const server = new BaseService(url);
   return await server.sendEncoded(Buffer.from(hex, "hex"));
 };
 

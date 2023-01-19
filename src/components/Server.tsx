@@ -1,6 +1,5 @@
 import React from "react";
-import { Base as Server } from "@liftedinit/many-js/dist/v2";
-import { Status as BaseStatus } from "@liftedinit/many-js/dist/server/base/status";
+import { BaseService, BaseStatus } from "@liftedinit/many-js";
 import {
   Badge,
   Box,
@@ -14,20 +13,22 @@ import {
   Text,
 } from "@liftedinit/ui";
 
-interface NetworkProps {
+interface ServerProps {
   url: string;
   setUrl: (url: string) => void;
 }
 
-function Network({ url, setUrl }: NetworkProps) {
+function Server({ url, setUrl }: ServerProps) {
   const [input, setInput] = React.useState(url);
   const [status, setStatus] = React.useState<BaseStatus | undefined>(undefined);
   const [endpoints, setEndpoints] = React.useState<string[]>([]);
   React.useEffect(() => {
     async function connect() {
       try {
-        const server = new Server(url);
+        const server = new BaseService(url);
+        console.log(server);
         const status = await server.status();
+        console.log(status);
         const { endpoints } = await server.endpoints();
         setStatus(status);
         setEndpoints(endpoints);
@@ -78,4 +79,4 @@ function Network({ url, setUrl }: NetworkProps) {
   );
 }
 
-export default Network;
+export default Server;
