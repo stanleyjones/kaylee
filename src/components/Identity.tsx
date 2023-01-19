@@ -27,7 +27,7 @@ function Identity({ setId }: IdentityProps) {
   const [textarea, setTextarea] = React.useState("");
   return (
     <Box bg="white" p={6}>
-      <Heading>Identity</Heading>
+      <Heading>Identifier</Heading>
       <Tabs>
         <TabList>
           <Tab onClick={() => setId(new Anonymous())}>Anonymous</Tab>

@@ -39,7 +39,7 @@ function Network({ url, setUrl }: NetworkProps) {
   }, [url]);
   return (
     <Box bg="white" p={6}>
-      <Heading>Network</Heading>
+      <Heading>Server</Heading>
       <FormControl>
         <Flex>
           <FormLabel w="200px" htmlFor="url">

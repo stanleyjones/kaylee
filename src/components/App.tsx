@@ -1,7 +1,6 @@
 import React from "react";
 import {
   Request as Req,
-  Response as Res,
   Identifier as Id,
   Anonymous,
 } from "@liftedinit/many-js/dist/v2";
@@ -19,7 +18,7 @@ function App() {
   const [url, setUrl] = React.useState("http://localhost:8000");
   const [id, setId] = React.useState<Id>(new Anonymous());
   const [req, setReq] = React.useState<Req | undefined>();
-  const [res, setRes] = React.useState<Res | undefined>();
+  const [enc, setEnc] = React.useState<Buffer | undefined>();
 
   return (
     <Container>
@@ -28,8 +27,8 @@ function App() {
         <Network url={url} setUrl={setUrl} />
         <Identity setId={setId} />
         <Message id={id} setReq={setReq} />
-        <Request url={url} id={id} req={req} setRes={setRes} />
-        <Response res={res} />
+        <Request url={url} id={id} req={req} setEnc={setEnc} />
+        <Response enc={enc} />
       </Stack>
     </Container>
   );

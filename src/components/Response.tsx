@@ -1,3 +1,4 @@
+import React from "react";
 import { Response as Res } from "@liftedinit/many-js/dist/v2";
 import {
   Tab,
@@ -11,10 +12,20 @@ import {
 } from "@liftedinit/ui";
 
 interface ResponseProps {
-  res?: Res;
+  enc?: Buffer;
 }
 
-function Response({ res }: ResponseProps) {
+function Response({ enc }: ResponseProps) {
+  const [res, setRes] = React.useState<Res | undefined>();
+
+  React.useEffect(() => {
+    if (enc) {
+      setRes(Res.fromBuffer(enc));
+    } else {
+      setRes(undefined);
+    }
+  }, [enc]);
+
   return (
     <Box bg="white" p={6}>
       <Heading>Response</Heading>
@@ -31,12 +42,12 @@ function Response({ res }: ResponseProps) {
               h={300}
               isReadOnly
               name="hex"
-              value={res && res.toBuffer().toString()}
+              value={enc && enc.toString("hex")}
             />
           </TabPanel>
           <TabPanel>
             <pre style={{ whiteSpace: "pre-wrap" }}>
-              {res && JSON.stringify(res.toObject())}
+              {res && JSON.stringify(res.toJSON(), null, 2)}
             </pre>
           </TabPanel>
         </TabPanels>
