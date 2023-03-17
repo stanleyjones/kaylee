@@ -10,12 +10,13 @@ import {
   Heading,
   Textarea,
 } from "@liftedinit/ui";
+import { toHex } from "../utils";
 
 interface ResponseProps {
-  enc?: Buffer;
+  enc?: Uint8Array;
 }
 
-const replacer = (key: any, value: unknown) => {
+const replacer = (_key: any, value: unknown) => {
   if (value instanceof Map) {
     return Object.fromEntries(value);
   }
@@ -27,7 +28,7 @@ function Response({ enc }: ResponseProps) {
 
   React.useEffect(() => {
     if (enc) {
-      setRes(Res.fromBuffer(enc));
+      setRes(Res.fromCborData(enc));
     } else {
       setRes(undefined);
     }
@@ -45,12 +46,7 @@ function Response({ enc }: ResponseProps) {
 
         <TabPanels>
           <TabPanel>
-            <Textarea
-              h={300}
-              isReadOnly
-              name="hex"
-              value={enc && enc.toString("hex")}
-            />
+            <Textarea h={300} isReadOnly name="hex" value={enc && toHex(enc)} />
           </TabPanel>
           <TabPanel>
             <pre style={{ whiteSpace: "pre-wrap" }}>

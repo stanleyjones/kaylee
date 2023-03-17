@@ -18,7 +18,7 @@ function App() {
   const [url, setUrl] = React.useState("http://localhost:8000");
   const [id, setId] = React.useState<Id>(new Anonymous());
   const [req, setReq] = React.useState<Req | undefined>();
-  const [enc, setEnc] = React.useState<Buffer | undefined>();
+  const [enc, setEnc] = React.useState<Uint8Array | undefined>();
 
   return (
     <Container>

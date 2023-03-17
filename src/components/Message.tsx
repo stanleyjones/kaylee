@@ -41,7 +41,7 @@ function Message({ id, setReq }: MessageProps) {
   const [form, setForm] = React.useState<ReqForm>(initialForm);
 
   // @HACK: Keep this line for now. The Buffer polyfill has a strange behavior.
-  id.publicKey = Buffer.from(id.publicKey);
+  // id.publicKey = Buffer.from(id.publicKey);
 
   React.useEffect(() => {
     setForm((form) => ({ ...form, from: id.toString() }));

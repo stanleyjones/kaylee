@@ -15,17 +15,18 @@ import {
   Tabs,
   Textarea,
 } from "@liftedinit/ui";
+import { fromHex, toHex } from "../utils";
 
 const sendReq = async (url: string, hex: string) => {
   const server = new BaseService(url);
-  return await server.sendEncoded(Buffer.from(hex, "hex"));
+  return await server.sendEncoded(fromHex(hex));
 };
 
 interface RequestProps {
   url: string;
   id: Id;
   req?: Req;
-  setEnc: (enc: Buffer) => void;
+  setEnc: (enc: Uint8Array) => void;
 }
 
 function Request({ url, id, req, setEnc }: RequestProps) {
@@ -34,7 +35,7 @@ function Request({ url, id, req, setEnc }: RequestProps) {
 
   React.useEffect(() => {
     async function reqToHex(req: Req) {
-      const hexReq = (await req.toBuffer(id)).toString("hex");
+      const hexReq = toHex(await req.toCborData(id));
       setHex(hexReq);
     }
     req && reqToHex(req);
@@ -42,7 +43,7 @@ function Request({ url, id, req, setEnc }: RequestProps) {
 
   React.useEffect(() => {
     function hexToJson(hex: string) {
-      const req = Req.fromBuffer(Buffer.from(hex, "hex"));
+      const req = Req.fromCborData(fromHex(hex));
       setJson(JSON.stringify(req.toJSON(), null, 2));
     }
     hex && hexToJson(hex);

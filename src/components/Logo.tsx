@@ -1,7 +1,13 @@
-import { Image } from "@liftedinit/ui";
-import logo from "../logo.png";
+import { logoSvg, Image, Stack, Heading } from "@liftedinit/ui";
 
 function Logo() {
-  return <Image src={logo} my={6} h={50} alt="Kaylee by Lifted Labs" />;
+  return (
+    <Stack direction="row">
+      <Image src={logoSvg} h="67px" mr={3} alt="Lifted Logo" />
+      <Heading lineHeight="67px" size="md" fontWeight="normal">
+        Kaylee
+      </Heading>
+    </Stack>
+  );
 }
 export default Logo;
