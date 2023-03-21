@@ -13,7 +13,7 @@ import {
   Text,
 } from "@liftedinit/ui";
 import { AppState } from "./App";
-import { BaseService } from "@liftedinit/many-js";
+import { BaseService, BaseStatus } from "@liftedinit/many-js";
 
 interface ServerProps {
   state: AppState;
@@ -22,13 +22,18 @@ interface ServerProps {
 
 function Server({ state, setState }: ServerProps) {
   const [url, setUrl] = useState("localhost");
+  const [status, setStatus] = useState<BaseStatus>();
 
   useEffect(() => {
     async function connect() {
       try {
         const server = new BaseService(url);
-        console.log(server);
-      } catch {}
+        const baseStatus = await server.status();
+        console.log(baseStatus);
+        setStatus(baseStatus);
+      } catch (e) {
+        console.error(e);
+      }
     }
     connect();
   }, [url]);
@@ -69,6 +74,14 @@ function Server({ state, setState }: ServerProps) {
         </Flex>
       </FormControl>
       <Button mt={6}>Connect</Button>
+      {status && (
+        <Flex mt={6} gap={6}>
+          <CheckIcon color="green" />
+          <Text>
+            Connected to <b>{status.serverName}</b>
+          </Text>
+        </Flex>
+      )}
     </Box>
   );
   // return (

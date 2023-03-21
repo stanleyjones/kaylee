@@ -20,7 +20,7 @@ export interface AppState {
 }
 
 function App() {
-  const [state, setState] = useState<AppState>();
+  const [state, setState] = useState<AppState>({});
   // const [url, setUrl] = React.useState("http://localhost:8000");
   // const [id, setId] = React.useState<Id>(new Anonymous());
   // const [req, setReq] = React.useState<Req | undefined>();
