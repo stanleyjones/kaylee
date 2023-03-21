@@ -1,14 +1,14 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
+import { ThemeProvider, theme } from "@liftedinit/ui";
 
 import App from "./components/App";
-import AppProvider from "./components/AppProvider";
 
 const root = document.getElementById("root");
 createRoot(root!).render(
   <React.StrictMode>
-    <AppProvider>
+    <ThemeProvider theme={theme}>
       <App />
-    </AppProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );

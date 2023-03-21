@@ -2,7 +2,7 @@ import { logoSvg, Image, Stack, Heading } from "@liftedinit/ui";
 
 function Logo() {
   return (
-    <Stack direction="row">
+    <Stack direction="row" my={6}>
       <Image src={logoSvg} h="67px" mr={3} alt="Lifted Logo" />
       <Heading lineHeight="67px" size="md" fontWeight="normal">
         Kaylee
